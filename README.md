@@ -12,6 +12,8 @@ TO BE DONE
 
 The [LoRaWAN/TheThingsUno/TTNUnoSendABP](https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/tree/main/LoRaWAN/TheThingsUno/TTNUnoSendABP) directory contains a sample code that sends information in CayenneLPP (Low Power Payload) format. It includes the code for a flame sensor detector KY-026.
 
+<img src="[drawing.jpg](https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/assets/17797704/a06c0d88-65d3-4fa0-a156-9db5379d2022)" alt="drawing" width="200"/>
+
 ### TTGO T-beam
 
 TO BE DONE
