@@ -4,7 +4,15 @@ This repository is intended to collect a number of simple implementations with d
 
 ## LoRa
 
-TO BE DONE
+### TTGO-LoRa32-SendReceiver 
+
+From https://github.com/cubapp/LilyGO-TTGO-LoRa32-SenderReceiver, included in https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/tree/main/LoRa/TTGO-LoRa32-SenderReceiver. It simply sends a counter and a random number from a LoRa sender to a LoRa receiver, and show the information in the display.
+
+![image](https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/assets/17797704/cfa9f4e9-688d-4a51-83df-58e8a91ad4e4)
+
+### Sending images over LoRa
+
+TO BE WRITEN, using Pycom nodes.
 
 ## LoRaWAN
 
