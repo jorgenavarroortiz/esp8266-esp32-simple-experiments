@@ -53,7 +53,7 @@ Steps to configugre TTN mapper:
 4) You should see the node in `https://ttnmapper.org/heatmap/`.
 
 <!--![image](https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/assets/17797704/4cb820de-5dbc-4433-af39-bc55bbb9145f)-->
-<img src="https://raw.githubusercontent.com/jorgenavarroortiz/lora-lorawan-simple-experiments/main/img/ttgo-tbeam-01.png" alt="ttgo-tbeam-04" width="800"/>
+<img src="https://raw.githubusercontent.com/jorgenavarroortiz/lora-lorawan-simple-experiments/main/img/ttgo-tbeam-04.png" alt="ttgo-tbeam-04" width="800"/>
 
 ### LILYGO T-Higrow ESP32 Soil Tester BEM280
 
@@ -61,12 +61,14 @@ Based on https://github.com/Xinyuan-LilyGO/LilyGo-HiGrow.
 
 Check the repository [t-higrow-lorawan](https://github.com/jorgenavarroortiz/t-higrow-lorawan).
 
-![image](https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/assets/17797704/a731ec1d-cb19-4198-b863-f3bbbbd03034)
+<!--![image](https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/assets/17797704/a731ec1d-cb19-4198-b863-f3bbbbd03034)-->
+<img src="https://raw.githubusercontent.com/jorgenavarroortiz/lora-lorawan-simple-experiments/main/img/t-higrow-lorawan.png" alt="t-higrow-lorawan" width="800"/>
 
 ### WeMos D1 Mini with a Hallard LoRaWAN board (RN2483)
 
 Chech the https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/tree/main/LoRaWAN/ESP8266_RN2483_basic_DHT_BMP180 directory. It includes the source code for a WeMos D1 mini with a RN2483 LoRaWAN chip (using [Hallard's shield](https://github.com/hallard/WeMos-RN2483)), with a DHT22 sensor (temperature and humidity) and a BME180 sensor (temperature, pressure, altitude).
 
-![image](https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/assets/17797704/598c5fe6-4ae3-4ee6-92b0-f55404a9049d)
+<!--![image](https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/assets/17797704/598c5fe6-4ae3-4ee6-92b0-f55404a9049d)-->
+<img src="https://raw.githubusercontent.com/jorgenavarroortiz/lora-lorawan-simple-experiments/main/img/wemos-rn2483-sensors.png" alt="wemos-rn2483-sensors" width="400"/>
 
 
