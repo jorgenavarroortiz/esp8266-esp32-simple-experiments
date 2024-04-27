@@ -39,7 +39,7 @@ Steps to configugre TTN mapper:
 
 ![image](https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/assets/17797704/648ce1a5-e804-4e0d-8980-2e36dbace55c)
 
-3) In the TTN application, go to `integrations` -> `webhooks` with webhook format `protocol buffers`, base URL `https://integrations.ttnmapper.org/tts/v3`, and YTTNMAPPERORG-USER `your mail address`.
+3) In the TTN application, go to `integrations` -> `webhooks` with webhook format `protocol buffers`, base URL `https://integrations.ttnmapper.org/tts/v3`, and TTNMAPPERORG-USER `your mail address`.
 
 ![image](https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/assets/17797704/4ff1e277-61b5-413b-ad8b-be66c79cdb1c)
 
