@@ -58,7 +58,7 @@ Check the repository [t-higrow-lorawan](https://github.com/jorgenavarroortiz/t-h
 
 ### WeMos D1 Mini with a Hallard LoRaWAN board (RN2483)
 
-TO BE DONE
+Chech the https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/tree/main/LoRaWAN/ESP8266_RN2483_basic_DHT_BMP180 directory. It includes the source code for a WeMos D1 mini with a RN2483 LoRaWAN chip (using [Hallard's shield](https://github.com/hallard/WeMos-RN2483)), with a DHT22 sensor (temperature and humidity) and a BME180 sensor (temperature, pressure, altitude).
 
 ![image](https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/assets/17797704/598c5fe6-4ae3-4ee6-92b0-f55404a9049d)
 
