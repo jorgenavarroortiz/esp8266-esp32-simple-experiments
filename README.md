@@ -22,7 +22,6 @@ The [LoRaWAN/TheThingsUno/TTNUnoSendABP](https://github.com/jorgenavarroortiz/lo
 
 ![image](https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/assets/17797704/65772651-8909-4085-bf38-cf3e96396dc0)
 
-
 ### TTGO T-beam
 
 From [TTGO T-Beam Tracker for The Things Network](https://github.com/kizniche/ttgo-tbeam-ttn-tracker).
@@ -33,7 +32,7 @@ Steps to configugre TTN mapper:
 
 1) Add the code to a TTGO T-Beam. The node shall be outdoor to get information from GPS satellites.
 
-![image](https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/assets/17797704/ad96023c-dde4-4bdc-b2df-f8bacb1dffe2)
+![image](https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/assets/17797704/a840d753-c488-4848-801b-42fd3819d317)
 
 2) In TTN, create a new application for this experiment (`wimunet-ttnmapper` in the example). Configure the nodes to use CayenneLPP decoder. You can export the received information in JSON format (`Export as JSON` button).
 
@@ -45,13 +44,20 @@ Steps to configugre TTN mapper:
 
 4) You should see the node in `https://ttnmapper.org/heatmap/`.
 
-![image](https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/assets/17797704/76f670cc-a37e-4fea-a119-a2bb93411a24)
+![image](https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/assets/17797704/4cb820de-5dbc-4433-af39-bc55bbb9145f)
 
 ### LILYGO T-Higrow ESP32 Soil Tester BEM280
 
-TO BE DONE
+Based on https://github.com/Xinyuan-LilyGO/LilyGo-HiGrow.
+
+Check the repository [t-higrow-lorawan](https://github.com/jorgenavarroortiz/t-higrow-lorawan).
+
+![image](https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/assets/17797704/a731ec1d-cb19-4198-b863-f3bbbbd03034)
 
 ### WeMos D1 Mini with a Hallard LoRaWAN board (RN2483)
 
 TO BE DONE
+
+![image](https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/assets/17797704/598c5fe6-4ae3-4ee6-92b0-f55404a9049d)
+
 
