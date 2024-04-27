@@ -53,7 +53,8 @@ Steps to configugre TTN mapper:
 4) You should see the node in [TTN Mapper](https://ttnmapper.org/heatmap/).
 
 <!--![image](https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/assets/17797704/4cb820de-5dbc-4433-af39-bc55bbb9145f)-->
-<img src="https://raw.githubusercontent.com/jorgenavarroortiz/lora-lorawan-simple-experiments/main/img/ttgo-tbeam-04.png" alt="ttgo-tbeam-04" width="600"/>
+<!--img src="https://raw.githubusercontent.com/jorgenavarroortiz/lora-lorawan-simple-experiments/main/img/ttgo-tbeam-04.png" alt="ttgo-tbeam-04" width="600"/-->
+<img src="https://raw.githubusercontent.com/jorgenavarroortiz/lora-lorawan-simple-experiments/main/img/ttgo-tbeam-05.png" alt="ttgo-tbeam-05" width="800"/>
 
 ### LILYGO T-Higrow ESP32 Soil Tester BEM280
 
