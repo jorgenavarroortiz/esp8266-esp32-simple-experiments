@@ -25,7 +25,27 @@ The [LoRaWAN/TheThingsUno/TTNUnoSendABP](https://github.com/jorgenavarroortiz/lo
 
 ### TTGO T-beam
 
-TO BE DONE
+From [TTGO T-Beam Tracker for The Things Network](https://github.com/kizniche/ttgo-tbeam-ttn-tracker).
+
+The [lora-lorawan-simple-experiments/LoRaWAN/ttgo-tbeam-ttn-tracker-sx1262](https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/tree/main/LoRaWAN/ttgo-tbeam-ttn-tracker-sx1262) directory contains a sample code that sends the GPS information to TTN.
+
+Steps to configugre TTN mapper:
+
+1) Add the code to a TTGO T-Beam. The node shall be outdoor to get information from GPS satellites.
+
+![image](https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/assets/17797704/ad96023c-dde4-4bdc-b2df-f8bacb1dffe2)
+
+2) In TTN, create a new application for this experiment (`wimunet-ttnmapper` in the example). Configure the nodes to use CayenneLPP decoder. You can export the received information in JSON format (`Export as JSON` button).
+
+![image](https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/assets/17797704/648ce1a5-e804-4e0d-8980-2e36dbace55c)
+
+3) In the TTN application, go to `integrations` -> `webhooks` with webhook format `protocol buffers`, base URL `https://integrations.ttnmapper.org/tts/v3`, and YTTNMAPPERORG-USER `your mail address`.
+
+![image](https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/assets/17797704/4ff1e277-61b5-413b-ad8b-be66c79cdb1c)
+
+4) You should see the node in `https://ttnmapper.org/heatmap/`.
+
+![image](https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/assets/17797704/76f670cc-a37e-4fea-a119-a2bb93411a24)
 
 ### LILYGO T-Higrow ESP32 Soil Tester BEM280
 
