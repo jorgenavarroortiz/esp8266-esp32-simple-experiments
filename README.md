@@ -12,7 +12,9 @@ From https://github.com/cubapp/LilyGO-TTGO-LoRa32-SenderReceiver, included in ht
 
 ### Sending images over LoRa
 
-TO BE WRITEN, using Pycom nodes.
+Private repository at https://github.com/jorgenavarroortiz/LoRa-multimedia. Using Pycom FiPy nodes.
+
+![image](https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/assets/17797704/64d1f8d6-a3ee-41d1-a670-0c886bcaa3ed)
 
 ## LoRaWAN
 
