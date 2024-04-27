@@ -50,7 +50,7 @@ Steps to configugre TTN mapper:
 <!--![image](https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/assets/17797704/4ff1e277-61b5-413b-ad8b-be66c79cdb1c)-->
 <img src="https://raw.githubusercontent.com/jorgenavarroortiz/lora-lorawan-simple-experiments/main/img/ttgo-tbeam-03.png" alt="ttgo-tbeam-03" width="800"/>
 
-4) You should see the node in `https://ttnmapper.org/heatmap/`.
+4) You should see the node in [TTN Mapper](https://ttnmapper.org/heatmap/).
 
 <!--![image](https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/assets/17797704/4cb820de-5dbc-4433-af39-bc55bbb9145f)-->
 <img src="https://raw.githubusercontent.com/jorgenavarroortiz/lora-lorawan-simple-experiments/main/img/ttgo-tbeam-04.png" alt="ttgo-tbeam-04" width="600"/>
