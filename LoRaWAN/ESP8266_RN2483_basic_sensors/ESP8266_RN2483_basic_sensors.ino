@@ -29,20 +29,23 @@
 #define RN2483NODE 1
 //#define ONECHANNELGW 1
 #define OLED 1
+#define DHTSENSOR
+#define BMP180SENSOR
+#define MPU6050SENSOR
 
 #define STR_HELPER(x) #x
 #define STR(x) STR_HELPER(x)
 
+#include <Wire.h>
+#include <Adafruit_Sensor.h>
+
 #ifdef OLED
-#include <Wire.h>  
 #include "SSD1306.h" 
 #include "images.h"
 SSD1306 display(0x3c, 4, 5); // ESP8266 with HALLARD board
 #endif
 
-#define DHTSENSOR
 #ifdef DHTSENSOR
-#include <Adafruit_Sensor.h>
 #include <DHT.h>
 #define DHTPIN 2     // Digital pin connected to the DHT sensor
 // Uncomment the type of sensor in use:
@@ -55,13 +58,19 @@ float t = 0.0;
 float h = 0.0;
 #endif
 
-#define BMP180SENSOR
 #ifdef BMP180SENSOR
 #include <Adafruit_BMP085.h>
 Adafruit_BMP085 bmp;
 float bmpT = 0.0;
 float bmpA = 0.0;
 float bmpP = 0.0;
+#endif
+
+#ifdef MPU6050SENSOR
+#include <Adafruit_MPU6050.h>
+Adafruit_MPU6050 mpu;
+sensors_event_t a, g, temp;
+float roll, pitch;
 #endif
 
 const long interval = 10000;      // Updates DHT readings every 10 seconds
@@ -73,6 +82,8 @@ unsigned long previousMillis = 0; // will store last time DHT was updated
 #define CHANNEL_HUM 3
 #define CHANNEL_PRES 4
 #define CHANNEL_ALT 5
+#define CHANNEL_ROLL 6
+#define CHANNEL_PITCH 7
 struct LPP_BLOCK {
   uint8_t typ;
   int val;
@@ -142,6 +153,73 @@ void setup() {
     } else {
       Serial.println("BMP initialization: ok");
     }
+#endif
+
+#ifdef MPU6050SENSOR
+  // Try to initialize!
+  if (!mpu.begin()) {
+    Serial.println("MPU6050 initialization: failed!");
+  }
+  Serial.println("MPU6050 initialization: ok");
+
+  mpu.setAccelerometerRange(MPU6050_RANGE_8_G);
+  Serial.print("MPU6050 Accelerometer range set to: ");
+  switch (mpu.getAccelerometerRange()) {
+  case MPU6050_RANGE_2_G:
+    Serial.println("+-2G");
+    break;
+  case MPU6050_RANGE_4_G:
+    Serial.println("+-4G");
+    break;
+  case MPU6050_RANGE_8_G:
+    Serial.println("+-8G");
+    break;
+  case MPU6050_RANGE_16_G:
+    Serial.println("+-16G");
+    break;
+  }
+  mpu.setGyroRange(MPU6050_RANGE_500_DEG);
+  Serial.print("MPU6050 Gyro range set to: ");
+  switch (mpu.getGyroRange()) {
+  case MPU6050_RANGE_250_DEG:
+    Serial.println("+- 250 deg/s");
+    break;
+  case MPU6050_RANGE_500_DEG:
+    Serial.println("+- 500 deg/s");
+    break;
+  case MPU6050_RANGE_1000_DEG:
+    Serial.println("+- 1000 deg/s");
+    break;
+  case MPU6050_RANGE_2000_DEG:
+    Serial.println("+- 2000 deg/s");
+    break;
+  }
+
+  mpu.setFilterBandwidth(MPU6050_BAND_21_HZ);
+  Serial.print("MPU6050 Filter bandwidth set to: ");
+  switch (mpu.getFilterBandwidth()) {
+  case MPU6050_BAND_260_HZ:
+    Serial.println("260 Hz");
+    break;
+  case MPU6050_BAND_184_HZ:
+    Serial.println("184 Hz");
+    break;
+  case MPU6050_BAND_94_HZ:
+    Serial.println("94 Hz");
+    break;
+  case MPU6050_BAND_44_HZ:
+    Serial.println("44 Hz");
+    break;
+  case MPU6050_BAND_21_HZ:
+    Serial.println("21 Hz");
+    break;
+  case MPU6050_BAND_10_HZ:
+    Serial.println("10 Hz");
+    break;
+  case MPU6050_BAND_5_HZ:
+    Serial.println("5 Hz");
+    break;
+  }
 #endif
 
   led_off();
@@ -282,6 +360,42 @@ void loop() {
     }
 #endif
 
+#ifdef MPU6050SENSOR
+  mpu.getEvent(&a, &g, &temp);
+
+   /* Print out the values */
+  Serial.print("MPU6050 Acceleration X: ");
+  Serial.print(a.acceleration.x);
+  Serial.print(", Y: ");
+  Serial.print(a.acceleration.y);
+  Serial.print(", Z: ");
+  Serial.print(a.acceleration.z);
+  Serial.println(" m/s^2");
+
+  Serial.print("MPU6050 Rotation X: ");
+  Serial.print(g.gyro.x);
+  Serial.print(", Y: ");
+  Serial.print(g.gyro.y);
+  Serial.print(", Z: ");
+  Serial.print(g.gyro.z);
+  Serial.println(" rad/s");
+
+  // formula from https://wiki.dfrobot.com/How_to_Use_a_Three-Axis_Accelerometer_for_Tilt_Sensing
+  // We could add a filter here...
+  roll = atan2(a.acceleration.y , a.acceleration.z) * 180.0 / PI;
+  pitch = atan2(-a.acceleration.x , sqrt(a.acceleration.y * a.acceleration.y + a.acceleration.z * a.acceleration.z)) * 180.0 / PI; //account for roll already applied
+
+  Serial.print("MPU6050 Roll = ");
+  Serial.print(roll,1);
+  Serial.print(", pitch = ");
+  Serial.print(pitch,1);
+  Serial.println(" degrees");
+
+  Serial.print("MPU6050 Temperature: ");
+  Serial.print(temp.temperature);
+  Serial.println(" degC");
+#endif
+
     //Clear buffer 
     lpp.reset();
     //Write data packets into the buffer 
@@ -294,7 +408,11 @@ void loop() {
     //lpp.addBarometricPressure(CHANNEL_PRES, bmpP); // Error decoding on ChirpStack
     //lpp.addAltitude(CHANNEL_ALT, bmpA);            // Error decoding on ChirpStack
     lpp.addBarometricPressure(CHANNEL_PRES, bmpP);
-    lpp.addBarometricPressure(CHANNEL_ALT, bmpA); // addAnalogInput has +-327 for range, too low
+    lpp.addBarometricPressure(CHANNEL_ALT, bmpA); // addAnalogInput has +-327 for range, too low, better range with barometric pressure
+#endif
+#ifdef MPU6050SENSOR
+    lpp.addBarometricPressure(CHANNEL_ROLL, roll); // addAnalogInput has +-327 for range, too low, better range with barometric pressure
+    lpp.addBarometricPressure(CHANNEL_PITCH, pitch);
 #endif
 
     Serial.println("TXing");
@@ -309,13 +427,16 @@ void loop() {
     display.setFont(ArialMT_Plain_10);
     display.drawString(0, 0, "Node HALLARD RN2483 #" STR(HALLARDNODE));
     display.drawString(0, 10, "CID: " + String(ESP.getChipId()));
-    display.drawString(0, 30, "Sending packet: ");
-    display.drawString(90, 30, String(counter));
+    display.drawString(0, 20, "Sending packet: ");
+    display.drawString(90, 20, String(counter));
 #ifdef DHTSENSOR
-    display.drawString(0,40, "temp: " + String(t) + ", hum: " + String(h) + "%");
+    display.drawString(0,30, "temp: " + String(t) + ", hum: " + String(h) + "%");
 #endif
 #ifdef BMP180SENSOR
-    display.drawString(0,50, "pres: " + String(bmpP) + " mbar, alt: " + String(bmpA) + "m");
+    display.drawString(0,40, "pres: " + String(bmpP) + " mb, alt: " + String(bmpA) + "m");
+#endif
+#ifdef BMP180SENSOR
+    display.drawString(0,50, "roll: " + String(roll) + " pitch: " + String(pitch) + " º");
 #endif
     display.display();
 #endif
