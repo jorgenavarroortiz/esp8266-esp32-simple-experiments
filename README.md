@@ -74,4 +74,6 @@ Check the https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/t
 
 ### Single channel gateway using WeMos D1 Mini with a Hallard LoRaWAN board (RFM95)
 
-[Single channel gateway](https://github.com/things4u/ESP-1ch-Gateway) using [Hallar's shield with RFM95](https://github.com/hallard/WeMos-Lora). With few modifications to avoid compilation errors on Arduino 2.3.2, using the libraries in the `lib` directory.
+[Single channel gateway](https://github.com/things4u/ESP-1ch-Gateway) using [Hallar's shield with RFM95](https://github.com/hallard/WeMos-Lora). With few modifications to avoid compilation errors on Arduino 2.3.2, using the libraries in the `lib` directory. CHECK WIFIMANAGER PART (Wi-Fi network not saved in next reboot).
+
+<img src="https://raw.githubusercontent.com/jorgenavarroortiz/lora-lorawan-simple-experiments/main/img/single-channel-gateway.jpg" alt="single-channel-gateway" width="600"/>
