@@ -1,6 +1,6 @@
 # Simple experiments with LoRa and LoRaWAN
 
-This repository is intended to collect a number of simple implementations with different nodes that support LoRa or LoRaWAN.
+This repository is intended to collect a number of simple (or not so simple) implementations with different nodes that support LoRa or LoRaWAN.
 
 ## LoRa
 
@@ -67,7 +67,11 @@ Check the repository [t-higrow-lorawan](https://github.com/jorgenavarroortiz/t-h
 
 ### WeMos D1 Mini with a Hallard LoRaWAN board (RN2483)
 
-Chech the https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/tree/main/LoRaWAN/ESP8266_RN2483_basic_DHT_BMP180 directory. It includes the source code for a WeMos D1 mini with a RN2483 LoRaWAN chip (using [Hallard's shield](https://github.com/hallard/WeMos-RN2483)), with a DHT22 sensor (temperature and humidity) and a BME180 sensor (temperature, pressure, altitude).
+Check the https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/tree/main/LoRaWAN/ESP8266_RN2483_basic_DHT_BMP180 directory. It includes the source code for a WeMos D1 mini with a RN2483 LoRaWAN chip (using [Hallard's shield with RN2483](https://github.com/hallard/WeMos-RN2483)), with a DHT22 sensor (temperature and humidity) and a BME180 sensor (temperature, pressure, altitude).
 
 ![wemos-rn2483-sensors](https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/assets/17797704/10a573d0-d149-4454-86ab-1cba10ab6ecf)
 <!--img src="https://raw.githubusercontent.com/jorgenavarroortiz/lora-lorawan-simple-experiments/main/img/wemos-rn2483-sensors.png" alt="wemos-rn2483-sensors" width="400"/-->
+
+### Single channel gateway using WeMos D1 Mini with a Hallard LoRaWAN board (RFM95)
+
+[Single channel gateway](https://github.com/things4u/ESP-1ch-Gateway) using [Hallar's shield with RFM95](https://github.com/hallard/WeMos-Lora). With few modifications to avoid compilation errors on Arduino 2.3.2, using the libraries in the `lib` directory.
