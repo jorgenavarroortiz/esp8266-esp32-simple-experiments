@@ -80,3 +80,6 @@ Check the https://github.com/jorgenavarroortiz/lora-lorawan-simple-experiments/t
 
 <img src="https://raw.githubusercontent.com/jorgenavarroortiz/lora-lorawan-simple-experiments/main/img/single-channel-gateway02.jpg" alt="single-channel-gateway" width="400"/>
 
+Tested also with an ESP32 (TTGO LoRa32).
+
+<img src="https://raw.githubusercontent.com/jorgenavarroortiz/lora-lorawan-simple-experiments/main/img/single-channel-gateway-esp32.jpg" alt="single-channel-gateway" width="400"/>
