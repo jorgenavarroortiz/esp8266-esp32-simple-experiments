@@ -1,4 +1,4 @@
-# Simple experiments with LoRa and LoRaWAN
+# Simple experiments with ESP8266 and ESP32 (including LoRa, LoRaWAN and eInk displays)
 
 This repository is intended to collect a number of simple (or not so simple) implementations with different nodes that support LoRa or LoRaWAN.
 
