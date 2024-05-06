@@ -90,4 +90,4 @@ Original firmware from https://github.com/Xinyuan-LilyGO/LilyGo-T5-Epaper-Series
 
 <img src="https://raw.githubusercontent.com/jorgenavarroortiz/esp8266-esp32-simple-experiments/main/img/lilygo-t5-v22-original-firmware.jpg" alt="single-channel-gateway" width="400"/>
 
-Electronic eInk badge using the code from [https://github.com/lewisxhe/Esp-badge](https://github.com/lewisxhe/Esp-badge). Use the plugin [https://github.com/earlephilhower/arduino-littlefs-upload](https://github.com/earlephilhower/arduino-littlefs-upload) to upload the `data` directory to the SPIFFS partition. TO BE TESTED.
+Electronic eInk badge using the code from [https://github.com/lewisxhe/Esp-badge](https://github.com/lewisxhe/Esp-badge). Use the plugin [https://github.com/earlephilhower/arduino-littlefs-upload](https://github.com/earlephilhower/arduino-littlefs-upload) to upload the `data` directory to the LittleFS partition. Modified to support LittleFS instead of SPIFFS. Tested and working ok.
