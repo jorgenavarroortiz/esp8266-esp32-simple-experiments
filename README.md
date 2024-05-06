@@ -82,7 +82,7 @@ Check the https://github.com/jorgenavarroortiz/esp8266-esp32-simple-experiments/
 
 Tested also with an ESP32 (TTGO LoRa32).
 
-<img src="https://raw.githubusercontent.com/jorgenavarroortiz/esp8266-esp32-simple-experiments/main/img/single-channel-gateway-esp32.jpg" alt="single-channel-gateway" width="400"/>
+<img src="https://raw.githubusercontent.com/jorgenavarroortiz/esp8266-esp32-simple-experiments/main/img/single-channel-gateway-esp32.jpg" alt="single-channel-gateway-esp32" width="400"/>
 
 ## eInk (Lilygo T5 v2.2 with 2.9" eInk display (DEPG0290B))
 
@@ -91,3 +91,6 @@ Original firmware from https://github.com/Xinyuan-LilyGO/LilyGo-T5-Epaper-Series
 <img src="https://raw.githubusercontent.com/jorgenavarroortiz/esp8266-esp32-simple-experiments/main/img/lilygo-t5-v22-original-firmware.jpg" alt="single-channel-gateway" width="400"/>
 
 Electronic eInk badge using the code from [https://github.com/lewisxhe/Esp-badge](https://github.com/lewisxhe/Esp-badge). Use the plugin [https://github.com/earlephilhower/arduino-littlefs-upload](https://github.com/earlephilhower/arduino-littlefs-upload) to upload the `data` directory to the LittleFS partition. Modified to support LittleFS instead of SPIFFS. Tested and working ok.
+
+<img src="https://raw.githubusercontent.com/jorgenavarroortiz/esp8266-esp32-simple-experiments/main/img/lilygo-t5-v22-jna01.jpg" alt="lilygo-t5-v22-jna01" width="400"/>
+<img src="https://raw.githubusercontent.com/jorgenavarroortiz/esp8266-esp32-simple-experiments/main/img/lilygo-t5-v22-jna02.jpg" alt="lilygo-t5-v22-jna02" width="400"/>
