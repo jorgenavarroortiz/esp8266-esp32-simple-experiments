@@ -86,8 +86,8 @@ Tested also with an ESP32 (TTGO LoRa32).
 
 ## eInk (Lilygo T5 v2.2 with 2.9" eInk display (DEPG0290B))
 
-Original firmware from https://github.com/Xinyuan-LilyGO/LilyGo-T5-Epaper-Series, uploaded with ESP32 download tool v3.8.5. More information in the directory `[https://github.com/jorgenavarroortiz/esp8266-esp32-simple-experiments/tree/main/eInk/LilyGo-T5-Epaper-Series/firmware](https://github.com/jorgenavarroortiz/esp8266-esp32-simple-experiments/tree/main/eInk/LilyGo-T5-Epaper-Series/firmware)`. My device works with `T5_V22_BW_GxDEPG0290B.bin`, `T5_V22_BW_GxQYEG0290BN.bin` and `T5_V22_BW_GxQYEG0290BN_MP3.bin` (although the MP3 sounds quite bad).
+Original firmware from https://github.com/Xinyuan-LilyGO/LilyGo-T5-Epaper-Series, uploaded with ESP32 download tool v3.8.5. More information in the directory [https://github.com/jorgenavarroortiz/esp8266-esp32-simple-experiments/tree/main/eInk/LilyGo-T5-Epaper-Series/firmware](https://github.com/jorgenavarroortiz/esp8266-esp32-simple-experiments/tree/main/eInk/LilyGo-T5-Epaper-Series/firmware). My device works with `T5_V22_BW_GxDEPG0290B.bin`, `T5_V22_BW_GxQYEG0290BN.bin` and `T5_V22_BW_GxQYEG0290BN_MP3.bin` (although the MP3 sounds quite bad).
 
 <img src="https://raw.githubusercontent.com/jorgenavarroortiz/esp8266-esp32-simple-experiments/main/img/lilygo-t5-v22-original-firmware.jpg" alt="single-channel-gateway" width="400"/>
 
-Electronic eInk badge using the code from [https://github.com/lewisxhe/Esp-badge](https://github.com/lewisxhe/Esp-badge). TO BE TESTED.
+Electronic eInk badge using the code from [https://github.com/lewisxhe/Esp-badge](https://github.com/lewisxhe/Esp-badge). Use the plugin [https://github.com/earlephilhower/arduino-littlefs-upload](https://github.com/earlephilhower/arduino-littlefs-upload) to upload the `data` directory to the SPIFFS partition. TO BE TESTED.
