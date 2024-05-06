@@ -1,7 +1,14 @@
 #include <Arduino.h>
 #include <SD.h>
-#include <SPIFFS.h>
 #include <FS.h>
+//#include <SPIFFS.h>
+#define USE_LittleFS
+#ifdef USE_LittleFS
+  #define SPIFFS LittleFS
+  #include <LittleFS.h> 
+#else
+  #include <SPIFFS.h>
+#endif
 #include <GxEPD.h>
 #include "defConfig.h"
 
@@ -14,12 +21,11 @@
  |____/|_|  |_|_|       |_____/ \___|\___\___/ \__,_|\___|_|
 
 ****************************************************************/
-static const uint16_t   input_buffer_pixels = 20;       // may affect performance
-static const uint16_t   max_palette_pixels = 256;       // for depth <= 8
-uint8_t                 mono_palette_buffer[max_palette_pixels / 8];  // palette buffer for depth <= 8 b/w
-uint8_t                 color_palette_buffer[max_palette_pixels / 8]; // palette buffer for depth <= 8 c/w
-uint8_t                 input_buffer[3 * input_buffer_pixels];        // up to depth 24
-
+static const uint16_t input_buffer_pixels = 20;       // may affect performance
+static const uint16_t max_palette_pixels = 256;       // for depth <= 8
+uint8_t mono_palette_buffer[max_palette_pixels / 8];  // palette buffer for depth <= 8 b/w
+uint8_t color_palette_buffer[max_palette_pixels / 8]; // palette buffer for depth <= 8 c/w
+uint8_t input_buffer[3 * input_buffer_pixels];        // up to depth 24
 
 uint16_t read16(File &f)
 {
@@ -55,13 +61,15 @@ void drawBitmap(GxEPD &display, const char *filename, int16_t x, int16_t y, bool
     Serial.println('\'');
 
     file = FILESYSTEM.open(filename, FILE_READ);
-    if (!file) {
+    if (!file)
+    {
         Serial.print("File not found");
         return;
     }
 
     // Parse BMP header
-    if (read16(file) == 0x4D42) {
+    if (read16(file) == 0x4D42)
+    {
         // BMP signature
         uint32_t fileSize = read32(file);
         read32(file);
@@ -72,7 +80,8 @@ void drawBitmap(GxEPD &display, const char *filename, int16_t x, int16_t y, bool
         uint16_t planes = read16(file);
         uint16_t depth = read16(file); // bits per pixel
         uint32_t format = read32(file);
-        if ((planes == 1) && ((format == 0) || (format == 3))) {
+        if ((planes == 1) && ((format == 0) || (format == 3)))
+        {
             // uncompressed is handled, 565 also
             Serial.print("File size: ");
             Serial.println(fileSize);
@@ -90,7 +99,8 @@ void drawBitmap(GxEPD &display, const char *filename, int16_t x, int16_t y, bool
             uint32_t rowSize = (width * depth / 8 + 3) & ~3;
             if (depth < 8)
                 rowSize = ((width * depth + 8 - depth) / 8 + 3) & ~3;
-            if (height < 0) {
+            if (height < 0)
+            {
                 height = -height;
                 flip = false;
             }
@@ -107,11 +117,13 @@ void drawBitmap(GxEPD &display, const char *filename, int16_t x, int16_t y, bool
             bool whitish = false, colored = false;
             if (depth == 1)
                 with_color = false;
-            if (depth <= 8) {
+            if (depth <= 8)
+            {
                 if (depth < 8)
                     bitmask >>= depth;
-                file.seek(54); //palette is always @ 54
-                for (uint16_t pn = 0; pn < (1 << depth); pn++) {
+                file.seek(54); // palette is always @ 54
+                for (uint16_t pn = 0; pn < (1 << depth); pn++)
+                {
                     blue = file.read();
                     green = file.read();
                     red = file.read();
@@ -128,7 +140,8 @@ void drawBitmap(GxEPD &display, const char *filename, int16_t x, int16_t y, bool
             }
             display.fillScreen(GxEPD_WHITE);
             uint32_t rowPosition = flip ? imageOffset + (height - h) * rowSize : imageOffset;
-            for (uint16_t row = 0; row < h; row++, rowPosition += rowSize) {
+            for (uint16_t row = 0; row < h; row++, rowPosition += rowSize)
+            {
                 // for each line
                 uint32_t in_remain = rowSize;
                 uint32_t in_idx = 0;
@@ -137,16 +150,19 @@ void drawBitmap(GxEPD &display, const char *filename, int16_t x, int16_t y, bool
                 uint8_t in_bits = 0; // for depth <= 8
                 uint16_t color = GxEPD_WHITE;
                 file.seek(rowPosition);
-                for (uint16_t col = 0; col < w; col++) {
+                for (uint16_t col = 0; col < w; col++)
+                {
                     // for each pixel
                     // Time to read more pixel data?
-                    if (in_idx >= in_bytes) {
+                    if (in_idx >= in_bytes)
+                    {
                         // ok, exact match for 24bit also (size IS multiple of 3)
                         in_bytes = file.read(input_buffer, in_remain > sizeof(input_buffer) ? sizeof(input_buffer) : in_remain);
                         in_remain -= in_bytes;
                         in_idx = 0;
                     }
-                    switch (depth) {
+                    switch (depth)
+                    {
                     case 24:
                         blue = input_buffer[in_idx++];
                         green = input_buffer[in_idx++];
@@ -154,15 +170,19 @@ void drawBitmap(GxEPD &display, const char *filename, int16_t x, int16_t y, bool
                         whitish = with_color ? ((red > 0x80) && (green > 0x80) && (blue > 0x80)) : ((red + green + blue) > 3 * 0x80); // whitish
                         colored = (red > 0xF0) || ((green > 0xF0) && (blue > 0xF0));                                                  // reddish or yellowish?
                         break;
-                    case 16: {
+                    case 16:
+                    {
                         uint8_t lsb = input_buffer[in_idx++];
                         uint8_t msb = input_buffer[in_idx++];
-                        if (format == 0) {
+                        if (format == 0)
+                        {
                             // 555
                             blue = (lsb & 0x1F) << 3;
                             green = ((msb & 0x03) << 6) | ((lsb & 0xE0) >> 2);
                             red = (msb & 0x7C) << 1;
-                        } else {
+                        }
+                        else
+                        {
                             // 565
                             blue = (lsb & 0x1F) << 3;
                             green = ((msb & 0x07) << 5) | ((lsb & 0xE0) >> 3);
@@ -174,8 +194,10 @@ void drawBitmap(GxEPD &display, const char *filename, int16_t x, int16_t y, bool
                     break;
                     case 1:
                     case 4:
-                    case 8: {
-                        if (0 == in_bits) {
+                    case 8:
+                    {
+                        if (0 == in_bits)
+                        {
                             in_byte = input_buffer[in_idx++];
                             in_bits = 8;
                         }
@@ -187,11 +209,16 @@ void drawBitmap(GxEPD &display, const char *filename, int16_t x, int16_t y, bool
                     }
                     break;
                     }
-                    if (whitish) {
+                    if (whitish)
+                    {
                         color = GxEPD_WHITE;
-                    } else if (colored && with_color) {
+                    }
+                    else if (colored && with_color)
+                    {
                         color = GxEPD_RED;
-                    } else {
+                    }
+                    else
+                    {
                         color = GxEPD_BLACK;
                     }
                     uint16_t yrow = y + (flip ? h - row - 1 : row);
@@ -204,7 +231,8 @@ void drawBitmap(GxEPD &display, const char *filename, int16_t x, int16_t y, bool
         }
     }
     file.close();
-    if (!valid) {
-        Serial.println("bitmap format not handled.");
+    if (!valid)
+    {
+        Serial.println("bitmap format not handled...");
     }
 }

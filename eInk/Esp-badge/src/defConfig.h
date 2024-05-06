@@ -1,16 +1,16 @@
 #define FILESYSTEM SPIFFS
 
-/*100 * 100 bmp fromat*/
+/*100 * 100 bmp format*/
 //https://www.onlineconverter.com/jpg-to-bmp
 #define BADGE_CONFIG_FILE_NAME          "/badge.data"
-#define DEFALUT_AVATAR_BMP              "/avatar.bmp"
-#define DEFALUT_QR_CODE_BMP             "/qr.bmp"
-#define WIFI_SSID                       "Put your wifi ssid"
-#define WIFI_PASSWORD                   "Put your wifi password"
+#define DEFAULT_AVATAR_BMP              "/avatar.bmp"
+#define DEFAULT_QR_CODE_BMP             "/qr.bmp"
+#define WIFI_SSID                       "WAP"
+#define WIFI_PASSWORD                   "wimunet!"
 
-#define DEFAULE_WIFI_MODE               1
+#define DEFAULT_WIFI_MODE               1
 
-#define DEFALUT_FONT                    &FreeSans9pt7b
+#define DEFAULT_FONT                    &FreeSans9pt7b
 
 
 // ArduinoJson

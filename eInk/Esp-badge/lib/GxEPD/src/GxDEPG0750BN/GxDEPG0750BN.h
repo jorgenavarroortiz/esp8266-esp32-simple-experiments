@@ -1,4 +1,5 @@
-// class GxDEPG0750BN :
+// class GxDEPG0750BN
+// Controller: UC8179C
 
 #ifndef _GxDEPG0750BN_H_
 #define _GxDEPG0750BN_H_
@@ -119,6 +120,7 @@ public:
 #define GxEPD_HEIGHT GxDEPG0750BN_HEIGHT
 #define GxEPD_BitmapExamples <GxDEPG0750BN/BitmapExamples.h>
 #define GxEPD_BitmapExamplesQ "GxDEPG0750BN/BitmapExamples.h"
+#define GxEPD_ProductID       "7.5\""
 #endif
 
 #endif

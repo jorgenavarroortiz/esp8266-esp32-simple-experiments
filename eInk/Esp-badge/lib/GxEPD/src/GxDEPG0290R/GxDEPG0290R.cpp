@@ -1,4 +1,5 @@
 // class GxDEPG0290R :
+// Driver: SSD1680Z8
 
 #include "GxDEPG0290R.h"
 

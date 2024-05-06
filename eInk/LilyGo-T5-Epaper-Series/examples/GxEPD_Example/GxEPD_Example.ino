@@ -5,7 +5,7 @@
 
 // According to the board, cancel the corresponding macro definition
 // #define LILYGO_T5_V213
-// #define LILYGO_T5_V22
+#define LILYGO_T5_V22
 // #define LILYGO_T5_V24
 // #define LILYGO_T5_V28
 // #define LILYGO_T5_V102                           
@@ -33,7 +33,7 @@
 // #include <GxDEPG0150BN/GxDEPG0150BN.h>    // 1.51" b/w   form DKE GROUP
 // #include <GxDEPG0266BN/GxDEPG0266BN.h>    // 2.66" b/w   form DKE GROUP
 // #include <GxDEPG0290R/GxDEPG0290R.h>      // 2.9" b/w/r  form DKE GROUP
-// #include <GxDEPG0290B/GxDEPG0290B.h>      // 2.9" b/w    form DKE GROUP
+#include <GxDEPG0290B/GxDEPG0290B.h>      // 2.9" b/w    form DKE GROUP
 // #include <GxGDEW029Z10/GxGDEW029Z10.h>    // 2.9" b/w/r  form GoodDisplay
 // #include <GxGDEW0213Z16/GxGDEW0213Z16.h>  // 2.13" b/w/r form GoodDisplay
 // #include <GxGDE0213B1/GxGDE0213B1.h>      // 2.13" b/w  old panel , form GoodDisplay

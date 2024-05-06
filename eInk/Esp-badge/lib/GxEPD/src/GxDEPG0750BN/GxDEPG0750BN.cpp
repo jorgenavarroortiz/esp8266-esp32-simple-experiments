@@ -1,15 +1,6 @@
-// class GxDEPG0750BN : Display class for GDEW075T7 e-Paper from Dalian Good Display Co., Ltd.: http://www.e-paper-display.com/products_detail/productId=456.html
-//
-// based on Demo Example from Good Display, available here: http://www.e-paper-display.com/download_detail/downloadsId=891.html
-// Controller: GD7965 : http://www.e-paper-display.com/download_detail/downloadsId=821.html
-//
-// Author : J-M Zingg
-//
-// Version : see library.properties
-//
-// License: GNU GENERAL PUBLIC LICENSE V3, see LICENSE
-//
-// Library: https://github.com/ZinggJM/GxEPD
+// class GxDEPG0750BN
+// Controller: UC8179C
+
 
 #include "GxDEPG0750BN.h"
 

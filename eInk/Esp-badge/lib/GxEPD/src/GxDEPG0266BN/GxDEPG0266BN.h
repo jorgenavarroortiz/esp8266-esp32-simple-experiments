@@ -1,15 +1,5 @@
-// class GxDEPG0266BN : Display class for GDEP015OC1 e-Paper from Dalian Good Display Co., Ltd.: www.good-display.com
-//
-// based on Demo Example from Good Display, available here: http://www.good-display.com/download_detail/downloadsId=515.html
-// Controller : IL3829 : http://www.good-display.com/download_detail/downloadsId=534.html
-//
-// Author : J-M Zingg
-//
-// Version : see library.properties
-//
-// License: GNU GENERAL PUBLIC LICENSE V3, see LICENSE
-//
-// Library: https://github.com/ZinggJM/GxEPD
+// class GxDEPG0266BN
+// Controller : SSD1680Z8
 
 #ifndef _GxDEPG0266BN_H_
 #define _GxDEPG0266BN_H_
@@ -128,6 +118,7 @@ public:
 #define GxEPD_HEIGHT GxDEPG0266BN_HEIGHT
 #define GxEPD_BitmapExamples <GxDEPG0266BN/BitmapExamples.h>
 #define GxEPD_BitmapExamplesQ "GxDEPG0266BN/BitmapExamples.h"
+#define GxEPD_ProductID       "2.66\""
 #endif
 
 #endif

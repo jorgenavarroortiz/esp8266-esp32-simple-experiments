@@ -1,15 +1,6 @@
-// class GxDEPG0290B : Display class for GDEP015OC1 e-Paper from Dalian Good Display Co., Ltd.: www.good-display.com
-//
-// based on Demo Example from Good Display, available here: http://www.good-display.com/download_detail/downloadsId=515.html
-// Controller : IL3829 : http://www.good-display.com/download_detail/downloadsId=534.html
-//
-// Author : J-M Zingg
-//
-// Version : see library.properties
-//
-// License: GNU GENERAL PUBLIC LICENSE V3, see LICENSE
-//
-// Library: https://github.com/ZinggJM/GxEPD
+// class GxDEPG0290B
+// Controller :
+
 
 #ifndef _GxDEPG0290B_H_
 #define _GxDEPG0290B_H_
@@ -128,6 +119,7 @@ public:
 #define GxEPD_HEIGHT GxDEPG0290B_HEIGHT
 #define GxEPD_BitmapExamples <GxDEPG0290B/BitmapExamples.h>
 #define GxEPD_BitmapExamplesQ "GxDEPG0290B/BitmapExamples.h"
+#define GxEPD_ProductID       "2.9\""
 #endif
 
 #endif

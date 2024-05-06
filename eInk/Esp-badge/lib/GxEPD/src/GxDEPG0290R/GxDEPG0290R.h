@@ -1,5 +1,5 @@
 // class GxDEPG0290R :
-
+// Driver: SSD1680Z8
 #ifndef _GxDEPG0290R_H_
 #define _GxDEPG0290R_H_
 
@@ -108,6 +108,7 @@ public:
 #define GxEPD_HEIGHT GxDEPG0290R_HEIGHT
 #define GxEPD_BitmapExamples <GxDEPG0290R/BitmapExamples.h>
 #define GxEPD_BitmapExamplesQ "GxDEPG0290R/BitmapExamples.h"
+#define GxEPD_ProductID       "2.9\""
 #endif
 
 #endif

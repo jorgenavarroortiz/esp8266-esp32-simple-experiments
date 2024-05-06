@@ -1,15 +1,6 @@
-// class GxDEPG0266BN : Display class for GDEP015OC1 e-Paper from Dalian Good Display Co., Ltd.: www.good-display.com
-//
-// based on Demo Example from Good Display, available here: http://www.good-display.com/download_detail/downloadsId=515.html
-// Controller : IL3829 : http://www.good-display.com/download_detail/downloadsId=534.html
-//
-// Author : J-M Zingg
-//
-// Version : see library.properties
-//
-// License: GNU GENERAL PUBLIC LICENSE V3, see LICENSE
-//
-// Library: https://github.com/ZinggJM/GxEPD
+// class GxDEPG0266BN
+// Controller : SSD1680Z8
+
 
 #include "GxDEPG0266BN.h"
 
@@ -349,9 +340,14 @@ void GxDEPG0266BN::updateToWindow(uint16_t xs, uint16_t ys, uint16_t xd, uint16_
 void GxDEPG0266BN::powerDown()
 {
     _using_partial_mode = false;
+    _waitWhileBusy(" ", 10000);
+    _writeCommand(0x22);
+    _writeData(0x03);
+    _writeCommand(0x20);
+    _waitWhileBusy(" ", 10000);
     _writeCommand(0x10);
     _writeData(0x01);
-    _PowerOff();
+    // _PowerOff();
 }
 
 void GxDEPG0266BN::_writeCommand(uint8_t command)

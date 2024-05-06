@@ -1,17 +1,26 @@
 /*
     LilyGo Ink Screen Series
         - Created by Lewis he , Last updated 3/16/2021
+        - Modified by Jorge Navarro-Ortiz (jorgenavarro@ugr.es), University of Granada
 */
 
 // According to the board, cancel the corresponding macro definition
 // #define LILYGO_T5_V213
-// #define LILYGO_T5_V22
+#define LILYGO_T5_V22
 // #define LILYGO_T5_V24
 // #define LILYGO_T5_V28
 
 #include <SD.h>
 #include <FS.h>
-#include <SPIFFS.h>
+//#include <SPIFFS.h>
+#define USE_LittleFS
+#ifdef USE_LittleFS
+  #define SPIFFS LittleFS
+  #include <LittleFS.h> 
+#else
+  #include <SPIFFS.h>
+#endif 
+
 #include <SPI.h>
 #include <WiFi.h>
 #include <Wire.h>
@@ -56,9 +65,9 @@
 
 // #include <GxDEPG0266BN/GxDEPG0266BN.h>    // 2.66" b/w  form DKE GROUP
 
-// #include <GxGDEH029A1/GxGDEH029A1.h>      // 2.9" b/w
+//#include <GxGDEH029A1/GxGDEH029A1.h>      // 2.9" b/w
 // #include <GxQYEG0290BN/GxQYEG0290BN.h>    // 2.9" b/w new panel
-// #include <GxDEPG0290B/GxDEPG0290B.h>      // 2.9" b/w    form DKE GROUP
+#include <GxDEPG0290B/GxDEPG0290B.h>      // 2.9" b/w    form DKE GROUP
 
 // #include <GxGDEW029Z10/GxGDEW029Z10.h>    // 2.9" b/w/r
 // #include <GxDEPG0290R/GxDEPG0290R.h>      // 2.9" b/w/r  form DKE GROUP
@@ -93,12 +102,15 @@ GxEPD_Class             display(io, EPD_RSET, EPD_BUSY);
 AceButton               *btnPtr = NULL;
 
 Badge_Info_t            info;
-const char              *path[2] = {DEFALUT_AVATAR_BMP, DEFALUT_QR_CODE_BMP};
+const char              *path[2] = {DEFAULT_AVATAR_BMP, DEFAULT_QR_CODE_BMP};
 
 const uint8_t           btns[] = BUTTONS;
 const uint8_t           handle_btn_nums = sizeof(btns) / sizeof(*btns);
 
 uint8_t                 lastSelect = 0;
+
+uint8_t                 firstTimeLoop = 1;
+TaskHandle_t            taskWebClient;
 
 
 
@@ -127,9 +139,13 @@ static void socEnterSleepMode(void)
 static void singleButtonHandleCb(uint8_t event)
 {
     if (event == AceButton::kEventClicked) {
+        Serial.println("Button 1 pressed!");
         displayBadgePage(lastSelect++);
         lastSelect %= BADGE_PAGE_MAX;
+        Serial.print("lastSelect: ");
+        Serial.println(lastSelect);
     } else if (event == AceButton::kEventLongPressed) {
+        Serial.println("Button 1 long pressed!");
         socEnterSleepMode();
     }
 }
@@ -137,21 +153,27 @@ static void singleButtonHandleCb(uint8_t event)
 #ifdef BUTTON_2
 static void threeButtonHandleCb(uint8_t pin, uint8_t event)
 {
-    if (event != AceButton::kEventClicked) {
+    // Added kEventPressed for T5 v2.2, since most of the events were not kEventClicked.
+    if ((event != AceButton::kEventClicked) && (event != AceButton::kEventPressed)) {
         return ;
     }
     switch (pin) {
     case BUTTON_1:
+        Serial.println("Button 1 pressed!");
         socEnterSleepMode();
         break;
 
     case BUTTON_2:
         //TODO:
+        Serial.println("Button 2 pressed!");
         break;
 
     case BUTTON_3:
+        Serial.println("Button 3 pressed!");
         displayBadgePage(lastSelect++);
         lastSelect %= BADGE_PAGE_MAX;
+        Serial.print("lastSelect: ");
+        Serial.println(lastSelect);
         break;
     default:
         break;
@@ -229,12 +251,12 @@ void saveBadgeInfo(Badge_Info_t *info)
 
 void loadDefaultInfo(void)
 {
-    strlcpy(info.company,   "Xin Yuan Electronic",  sizeof(info.company));
-    strlcpy(info.name,      "Lilygo",               sizeof(info.name));
-    strlcpy(info.address,   "ShenZhen",             sizeof(info.address));
-    strlcpy(info.email,     "lily@lilygo.cc",       sizeof(info.email));
-    strlcpy(info.link,      "http://www.lilygo.cn", sizeof(info.link));
-    strlcpy(info.tel,       "0755-83380665",        sizeof(info.tel));
+    strlcpy(info.company,   "company",   sizeof(info.company));
+    strlcpy(info.name,      "name",      sizeof(info.name));
+    strlcpy(info.address,   "address",    sizeof(info.address));
+    strlcpy(info.email,     "mail@mail.com",      sizeof(info.email));
+    strlcpy(info.link,      "link", sizeof(info.link));
+    strlcpy(info.tel,       "phone",    sizeof(info.tel));
     saveBadgeInfo(&info);
 }
 
@@ -246,7 +268,7 @@ bool loadBadgeInfo(Badge_Info_t *info)
     }
     File file = FILESYSTEM.open(BADGE_CONFIG_FILE_NAME);
     if (!file) {
-        Serial.println("Open Fial -->");
+        Serial.println("Open File -->");
         return false;
     }
     cJSON *root =  cJSON_Parse(file.readString().c_str());
@@ -445,24 +467,38 @@ static void displayBadgePage(uint8_t num)
     display.fillScreen(GxEPD_WHITE);
     switch (num) {
     case BADGE_PAGE1:
-        drawBitmap(display, DEFALUT_AVATAR_BMP, 10, 10, true);
-        displayText(info.name, 30, GxEPD_ALIGN_RIGHT);
-        displayText(info.company, 50, GxEPD_ALIGN_RIGHT);
-        displayText(info.email, 70, GxEPD_ALIGN_RIGHT);
-        displayText(info.link, 90, GxEPD_ALIGN_RIGHT);
+        drawBitmap(display, DEFAULT_AVATAR_BMP, 10, 10, true);
+        displayText(info.name,    30, GxEPD_ALIGN_RIGHT);
+        displayText(info.company, 60, GxEPD_ALIGN_RIGHT);
+        displayText(info.email,   80, GxEPD_ALIGN_RIGHT);
+        displayText(info.link,    100, GxEPD_ALIGN_RIGHT);
         display.update();
         break;
     case BADGE_PAGE2:
-        drawBitmap(display, DEFALUT_QR_CODE_BMP, 10, 10, true);
-        displayText(info.tel, 50, GxEPD_ALIGN_RIGHT);
-        displayText(info.email, 70, GxEPD_ALIGN_RIGHT);
-        displayText(info.address, 90, GxEPD_ALIGN_RIGHT);
+        drawBitmap(display, DEFAULT_QR_CODE_BMP, 10, 10, true);
+        displayText(info.name,    30, GxEPD_ALIGN_RIGHT);
+        displayText(info.company, 60, GxEPD_ALIGN_RIGHT);
+        displayText(info.address, 80, GxEPD_ALIGN_RIGHT);
+        displayText(info.tel,     100, GxEPD_ALIGN_RIGHT);
         display.update();
         break;
     default:
         break;
     }
 }
+
+
+/****************************************************************
+WEB CLIENT
+****************************************************************/
+void taskWebClientCode(void * parameter) {
+  for(;;) {
+    // Code for task - infinite loop
+    Serial.println("task...");
+    sleep(10);
+  }
+}
+
 
 /****************************************************************
  __  __       _
@@ -485,17 +521,37 @@ void setup()
     display.init();
     display.setRotation(1);
     display.setTextColor(GxEPD_BLACK);
-    display.setFont(DEFALUT_FONT);
+    display.setFont(DEFAULT_FONT);
 
-    if (!FILESYSTEM.begin()) {
+    display.setCursor(2,54);
+    display.println("Initializing...");
+    display.setCursor(2,74);
+    display.println("jorgenavarro@ugr.es, 2024");
+    display.update();
+
+    Serial.print("setup() running on core ");
+    Serial.println(xPortGetCoreID());
+
+    //if (!FILESYSTEM.begin(true)) {
+      if (!FILESYSTEM.begin()) {
         Serial.println("FILESYSTEM initialization error.");
-        Serial.println("FILESYSTEM formart ...");
+        Serial.println("FILESYSTEM format ...");
 
         display.setCursor(0, 16);
         display.println("FILESYSTEM initialization error.");
-        display.println("FILESYSTEM formart ...");
+        display.println("FILESYSTEM format ...");
         display.update();
         FILESYSTEM.begin(true);
+    } else {
+      Serial.println("Listing SPIFFS root directory:");
+      File root = SPIFFS.open("/");
+      File file = root.openNextFile();
+ 
+      while(file){
+        Serial.print("FILE: ");
+        Serial.println(file.name());
+        file = root.openNextFile();
+      }
     }
 
     if (!loadBadgeInfo(&info)) {
@@ -508,14 +564,29 @@ void setup()
 
     setupButton();
 
-    setupWiFi(DEFAULE_WIFI_MODE);
+    setupWiFi(DEFAULT_WIFI_MODE);
 
     setupWebServer();
+
+    xTaskCreatePinnedToCore(
+      taskWebClientCode, /* Function to implement the task */
+      "taskWebClient", /* Name of the task */
+      10000,  /* Stack size in words */
+      NULL,  /* Task input parameter */
+      0,  /* Priority of the task */
+      &taskWebClient,  /* Task handle. */
+      0); /* Core where the task should run */
 
 }
 
 void loop()
 {
+  if (firstTimeLoop == 1) {
+    firstTimeLoop = 0;
+    Serial.print("loop() running on core ");
+    Serial.println(xPortGetCoreID());
+  }
+
     aceButtonLoop();
 }
 

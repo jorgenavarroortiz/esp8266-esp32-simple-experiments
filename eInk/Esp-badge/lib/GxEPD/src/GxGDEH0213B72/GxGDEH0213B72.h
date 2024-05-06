@@ -128,6 +128,7 @@ public:
 #define GxEPD_HEIGHT GxGDEH0213B72_HEIGHT
 #define GxEPD_BitmapExamples <GxGDEH0213B72/BitmapExamples.h>
 #define GxEPD_BitmapExamplesQ "GxGDEH0213B72/BitmapExamples.h"
+#define GxEPD_ProductID       "2.13\""
 #endif
 
 #endif
